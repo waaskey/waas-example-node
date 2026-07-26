@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "description": "Waaskey Node.js quickstart — non-custodial MPC wallet create + sign, no browser",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "packageManager": "pnpm@10.28.2",
   "scripts": {
     "start": "node index.mjs",
