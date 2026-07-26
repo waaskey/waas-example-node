@@ -81,6 +81,10 @@ const backup = {
   email: process.env.RECOVERY_EMAIL ?? 'demo@example.com',
 };
 
+// Keep the event loop alive during the ceremony: while the MPC awaits relay
+// messages, nothing else refs the loop and Node would exit mid-protocol.
+const keepalive = setInterval(() => {}, 60_000);
+
 console.time('create');
 const wallet = await waaskey.wallets.create({ chain: 'ethereum' }, { backup, activationTimeoutMs: 300_000 });
 console.timeEnd('create');
@@ -91,3 +95,4 @@ console.time('sign');
 const signature = await wallet.sign('c0ffee'.repeat(10) + 'c0ff'); // any 32-byte hex digest
 console.timeEnd('sign');
 console.log('signature:', `${String(signature).slice(0, 32)}…`);
+clearInterval(keepalive);
