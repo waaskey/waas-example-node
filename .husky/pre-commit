@@ -1,0 +1,6 @@
+# Mirror the CI gates locally: format (autofix + restage), lint, types, build.
+pnpm format
+git update-index --again
+pnpm lint
+pnpm types
+pnpm build
