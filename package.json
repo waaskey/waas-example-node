@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Waaskey Node.js quickstart — non-custodial MPC wallet create + sign, no browser",
+  "description": "Waaskey Node.js quickstart \u2014 non-custodial MPC wallet create + sign, no browser",
   "engines": {
     "node": ">=22"
   },
@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@waaskey/client-wasm": "0.2.1",
-    "@waaskey/sdk": "0.2.1"
+    "@waaskey/sdk": "0.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.0",

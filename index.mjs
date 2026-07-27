@@ -12,20 +12,9 @@
  * Required env: WAASKEY_API_KEY (dashboard), SHARE_SECRET (>=16 chars — seals the
  * device share at rest). Optional: WAASKEY_BASE_URL, RECOVERY_EMAIL.
  */
-import { readFile } from 'node:fs/promises';
 import { readFileSync, writeFileSync } from 'node:fs';
-import { createRequire } from 'node:module';
-import { Waaskey, WasmMpcCore, EncryptedShareStore, MemoryKeyValueStore, PrimePool, generateRecoveryCode } from '@waaskey/sdk';
-
-const require = createRequire(import.meta.url);
-
-// Node wasm loader: read the engine bytes from the installed package and initialize with them.
-async function loadClientWasmNode() {
-  const mod = await import('@waaskey/client-wasm');
-  const bytes = await readFile(require.resolve('@waaskey/client-wasm/client_wasm_bg.wasm'));
-  await mod.default(await WebAssembly.compile(bytes));
-  return mod;
-}
+import { Waaskey, EncryptedShareStore, MemoryKeyValueStore, PrimePool, generateRecoveryCode } from '@waaskey/sdk';
+import { NodeWorkerMpcCore } from '@waaskey/sdk/node';
 
 // File-backed prime store: a crash or restart never throws away generated primes.
 class FilePrimeStore {
@@ -58,7 +47,9 @@ class FilePrimeStore {
   }
 }
 
-const mpc = new WasmMpcCore(loadClientWasmNode);
+// Worker-thread MPC core (waas-sdk#82): the wasm computes in a worker while the relay
+// WebSocket stays responsive (and pinging) on the main thread.
+const mpc = new NodeWorkerMpcCore();
 const waaskey = new Waaskey({
   apiKey: process.env.WAASKEY_API_KEY,
   baseUrl: process.env.WAASKEY_BASE_URL, // omit for production
@@ -81,10 +72,6 @@ const backup = {
   email: process.env.RECOVERY_EMAIL ?? 'demo@example.com',
 };
 
-// Keep the event loop alive during the ceremony: while the MPC awaits relay
-// messages, nothing else refs the loop and Node would exit mid-protocol.
-const keepalive = setInterval(() => {}, 60_000);
-
 console.time('create');
 const wallet = await waaskey.wallets.create({ chain: 'ethereum' }, { backup, activationTimeoutMs: 300_000 });
 console.timeEnd('create');
@@ -95,4 +82,4 @@ console.time('sign');
 const signature = await wallet.sign('c0ffee'.repeat(10) + 'c0ff'); // any 32-byte hex digest
 console.timeEnd('sign');
 console.log('signature:', `${String(signature).slice(0, 32)}…`);
-clearInterval(keepalive);
+await mpc.terminate(); // the worker keeps the process alive until terminated

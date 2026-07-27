@@ -11,8 +11,8 @@ importers:
         specifier: 0.2.1
         version: 0.2.1
       '@waaskey/sdk':
-        specifier: 0.2.1
-        version: 0.2.1(@waaskey/client-wasm@0.2.1)
+        specifier: 0.3.0
+        version: 0.3.0(@waaskey/client-wasm@0.2.1)
     devDependencies:
       '@eslint/js':
         specifier: ^9.30.0
@@ -106,8 +106,8 @@ packages:
   '@waaskey/client-wasm@0.2.1':
     resolution: { integrity: sha512-aVHkrzBUBZKsZyy+XULUZHgef9GVx6SeLcHxyn4KhDc95Q46acE+pW7o4gvbxBEONOyGiKr6Qf3cgv/XZuMehA== }
 
-  '@waaskey/sdk@0.2.1':
-    resolution: { integrity: sha512-jkCp9fwXVQSWl5AJiMBZxEuhPyDkxO4BRkgO07jrmp3QeWppXW0snwbl9HRcW5Pgr2tvjnajZPto8OJ/P1SEUQ== }
+  '@waaskey/sdk@0.3.0':
+    resolution: { integrity: sha512-9eUu1ehkhsdPdf2BCHP5YrnUrehuEd1n0xlk1XZ+bEfiy9dxbRfTMgErjfWWj5f5XUdAr7GbxQuxmc7qp9h4rA== }
     engines: { node: '>=22' }
     peerDependencies:
       '@simplewebauthn/browser': ^13.0.0
@@ -401,6 +401,18 @@ packages:
     resolution: { integrity: sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA== }
     engines: { node: '>=0.10.0' }
 
+  ws@8.21.1:
+    resolution: { integrity: sha512-+0NTnW77fFN/DjQi6k/Sq/Yvk4Sgajw7urW8V+asjXnRgDs9gyGkdb7EzgfhA4goXsRIZKE28fzIXBHEzhuiWw== }
+    engines: { node: '>=10.0.0' }
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+
   yocto-queue@0.1.0:
     resolution: { integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q== }
     engines: { node: '>=10' }
@@ -480,11 +492,15 @@ snapshots:
 
   '@waaskey/client-wasm@0.2.1': {}
 
-  '@waaskey/sdk@0.2.1(@waaskey/client-wasm@0.2.1)':
+  '@waaskey/sdk@0.3.0(@waaskey/client-wasm@0.2.1)':
     dependencies:
       '@noble/curves': 2.2.0
+      ws: 8.21.1
     optionalDependencies:
       '@waaskey/client-wasm': 0.2.1
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
 
   acorn-jsx@5.3.2(acorn@8.17.0):
     dependencies:
@@ -749,5 +765,7 @@ snapshots:
       isexe: 2.0.0
 
   word-wrap@1.2.5: {}
+
+  ws@8.21.1: {}
 
   yocto-queue@0.1.0: {}
