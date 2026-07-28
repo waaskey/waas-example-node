@@ -18,8 +18,8 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@waaskey/client-wasm": "0.2.1",
-    "@waaskey/sdk": "0.3.0"
+    "@waaskey/client-wasm": "0.2.2",
+    "@waaskey/sdk": "0.3.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.0",

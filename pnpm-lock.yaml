@@ -8,11 +8,11 @@ importers:
   .:
     dependencies:
       '@waaskey/client-wasm':
-        specifier: 0.2.1
-        version: 0.2.1
+        specifier: 0.2.2
+        version: 0.2.2
       '@waaskey/sdk':
-        specifier: 0.3.0
-        version: 0.3.0(@waaskey/client-wasm@0.2.1)
+        specifier: 0.3.2
+        version: 0.3.2(@waaskey/client-wasm@0.2.2)
     devDependencies:
       '@eslint/js':
         specifier: ^9.30.0
@@ -103,15 +103,15 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: { integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA== }
 
-  '@waaskey/client-wasm@0.2.1':
-    resolution: { integrity: sha512-aVHkrzBUBZKsZyy+XULUZHgef9GVx6SeLcHxyn4KhDc95Q46acE+pW7o4gvbxBEONOyGiKr6Qf3cgv/XZuMehA== }
+  '@waaskey/client-wasm@0.2.2':
+    resolution: { integrity: sha512-4a5L8leAUceOxKe7d4P8qcfaorPBnDYrj12eK5oWuYwRdYc+gJxsxZWBYfNkVdRwGCORhyizGfkTTZLhOo9Oew== }
 
-  '@waaskey/sdk@0.3.0':
-    resolution: { integrity: sha512-9eUu1ehkhsdPdf2BCHP5YrnUrehuEd1n0xlk1XZ+bEfiy9dxbRfTMgErjfWWj5f5XUdAr7GbxQuxmc7qp9h4rA== }
+  '@waaskey/sdk@0.3.2':
+    resolution: { integrity: sha512-UoFuhZTZf1BU0ddp+M4ZNKQNgxuX+UzDFVue3GYxFiStkvYY32sWBIwanX7wSz9PE95fGw896lh3TSpIRPDZrQ== }
     engines: { node: '>=22' }
     peerDependencies:
       '@simplewebauthn/browser': ^13.0.0
-      '@waaskey/client-wasm': 0.2.1
+      '@waaskey/client-wasm': 0.2.2
     peerDependenciesMeta:
       '@simplewebauthn/browser':
         optional: true
@@ -490,14 +490,14 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@waaskey/client-wasm@0.2.1': {}
+  '@waaskey/client-wasm@0.2.2': {}
 
-  '@waaskey/sdk@0.3.0(@waaskey/client-wasm@0.2.1)':
+  '@waaskey/sdk@0.3.2(@waaskey/client-wasm@0.2.2)':
     dependencies:
       '@noble/curves': 2.2.0
       ws: 8.21.1
     optionalDependencies:
-      '@waaskey/client-wasm': 0.2.1
+      '@waaskey/client-wasm': 0.2.2
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
