@@ -9,8 +9,9 @@
  *      of the 2-of-3 ceremony; Waaskey's server runs the third,
  *   4. sign a 32-byte digest with the device+server quorum.
  *
- * Required env: WAASKEY_API_KEY (dashboard), SHARE_SECRET (>=16 chars — seals the
- * device share at rest). Optional: WAASKEY_BASE_URL, RECOVERY_EMAIL.
+ * Required env: WAASKEY_API_KEY (dashboard), WAASKEY_BASE_URL (your deployment's API
+ * origin, including /api — there is no default and no public sandbox), SHARE_SECRET
+ * (>=16 chars — seals the device share at rest). Optional: RECOVERY_EMAIL.
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { Waaskey, EncryptedShareStore, MemoryKeyValueStore, PrimePool, generateRecoveryCode } from '@waaskey/sdk';
@@ -47,16 +48,34 @@ class FilePrimeStore {
   }
 }
 
+/**
+ * Read a required variable, or stop with a line that names it.
+ *
+ * A quickstart's job is to teach, and an unset variable otherwise surfaces far from its
+ * cause — as a constructor error, or (worse, before the SDK required a base URL) as a
+ * network failure on every call.
+ */
+function requireEnv(name) {
+  const value = process.env[name];
+  if (!value) {
+    console.error(`Missing ${name}. Copy .env.example to .env.local, fill it in, and export it — see the README.`);
+    process.exit(1);
+  }
+  return value;
+}
+
 // Worker-thread MPC core (waas-sdk#82): the wasm computes in a worker while the relay
 // WebSocket stays responsive (and pinging) on the main thread.
 const mpc = new NodeWorkerMpcCore();
 const waaskey = new Waaskey({
-  apiKey: process.env.WAASKEY_API_KEY,
-  baseUrl: process.env.WAASKEY_BASE_URL, // omit for production
+  apiKey: requireEnv('WAASKEY_API_KEY'),
+  // Required: the SDK has no default base URL (the old one pointed at a host that does
+  // not resolve), and there is no public sandbox — point this at your own deployment.
+  baseUrl: requireEnv('WAASKEY_BASE_URL'),
   mpc,
   // In-memory for the demo. In a real server, back EncryptedShareStore with your own
   // persistent KeyValueStore (DB/file) — losing the store means recovering via waaskey.recovery.
-  shareStore: new EncryptedShareStore(new MemoryKeyValueStore(), process.env.SHARE_SECRET),
+  shareStore: new EncryptedShareStore(new MemoryKeyValueStore(), requireEnv('SHARE_SECRET')),
   primePool: new PrimePool(mpc, { store: new FilePrimeStore(new URL('./prime-pool.json', import.meta.url).pathname) }),
 });
 

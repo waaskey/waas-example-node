@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@waaskey/client-wasm": "0.2.2",
-    "@waaskey/sdk": "0.3.2"
+    "@waaskey/sdk": "0.4.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.0",

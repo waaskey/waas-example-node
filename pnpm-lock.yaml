@@ -11,8 +11,8 @@ importers:
         specifier: 0.2.2
         version: 0.2.2
       '@waaskey/sdk':
-        specifier: 0.3.2
-        version: 0.3.2(@waaskey/client-wasm@0.2.2)
+        specifier: 0.4.2
+        version: 0.4.2(@waaskey/client-wasm@0.2.2)
     devDependencies:
       '@eslint/js':
         specifier: ^9.30.0
@@ -106,8 +106,8 @@ packages:
   '@waaskey/client-wasm@0.2.2':
     resolution: { integrity: sha512-4a5L8leAUceOxKe7d4P8qcfaorPBnDYrj12eK5oWuYwRdYc+gJxsxZWBYfNkVdRwGCORhyizGfkTTZLhOo9Oew== }
 
-  '@waaskey/sdk@0.3.2':
-    resolution: { integrity: sha512-UoFuhZTZf1BU0ddp+M4ZNKQNgxuX+UzDFVue3GYxFiStkvYY32sWBIwanX7wSz9PE95fGw896lh3TSpIRPDZrQ== }
+  '@waaskey/sdk@0.4.2':
+    resolution: { integrity: sha512-AcvxeFUmTUnesaXAfKhEIEXDXfwyXJpctOZY1wgW62hRrWtTtKO1CS4e157R1+nAeGVLB5oHq6QyEHMOSWEkng== }
     engines: { node: '>=22' }
     peerDependencies:
       '@simplewebauthn/browser': ^13.0.0
@@ -492,7 +492,7 @@ snapshots:
 
   '@waaskey/client-wasm@0.2.2': {}
 
-  '@waaskey/sdk@0.3.2(@waaskey/client-wasm@0.2.2)':
+  '@waaskey/sdk@0.4.2(@waaskey/client-wasm@0.2.2)':
     dependencies:
       '@noble/curves': 2.2.0
       ws: 8.21.1
