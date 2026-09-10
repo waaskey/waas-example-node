@@ -16,5 +16,6 @@ The first run pre-generates the Paillier primes (several minutes of CPU, persist
 (AES-256-GCM keyed from `SHARE_SECRET`) — here into memory for the demo; use your own
 persistent `KeyValueStore` in a real server.
 
-> **Note:** requires `@waaskey/sdk` ≥ 0.2.1 (the 0.2.0 `PrimePool` auto-refill stalls
-> single-threaded ceremonies); the pin here is bumped as soon as 0.2.1 is on npm.
+> **Note:** pinned to `@waaskey/sdk` 0.9.1. Do not run this against 0.9.0 or earlier — the
+> device share store in those versions could open a share record out of another wallet's
+> entry (Next-Vector/waas-sdk#133).
